@@ -1,0 +1,7 @@
+[book]
+title = "mdBook 文档示例"
+author = ["JenkinsY"]
+language = "zh"
+
+[build]
+build-dir = "book"
