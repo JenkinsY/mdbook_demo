@@ -31,12 +31,11 @@ pipeline {
         }
 
         stage('Deploy to Nginx') {
-            agent { label 'jenkins' }  // 可自定义执行节点
             steps {
                 sh '''
-                echo "Deploying to Nginx..."
-                sudo rm -rf ${DEPLOY_DIR}/*
-                sudo cp -r ${MDBOOK_BUILD_DIR}/* ${DEPLOY_DIR}/
+                echo "🚀 Deploying to ${DEPLOY_DIR} ..."
+                rm -rf ${DEPLOY_DIR}/*
+                cp -r ${MDBOOK_BUILD_DIR}/* ${DEPLOY_DIR}/
                 '''
             }
         }
