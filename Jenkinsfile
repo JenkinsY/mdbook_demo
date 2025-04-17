@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'rust:latest'
-            args '-v /cargo-cache:/usr/local/cargo/registry'
-        }
-    }
+    agent any
 
     environment {
         MDBOOK_BUILD_DIR = "book"
@@ -18,12 +13,6 @@ pipeline {
             }
         }
 
-        stage('Install mdBook') {
-            steps {
-                sh 'cargo install mdbook || echo "mdBook already installed"'
-            }
-        }
-
         stage('Build Book') {
             steps {
                 sh 'mdbook build'
@@ -33,7 +22,7 @@ pipeline {
         stage('Deploy to Nginx') {
             steps {
                 sh '''
-                echo "🚀 Deploying to ${DEPLOY_DIR} ..."
+                echo "Deploying to Nginx..."
                 rm -rf ${DEPLOY_DIR}/*
                 cp -r ${MDBOOK_BUILD_DIR}/* ${DEPLOY_DIR}/
                 '''
